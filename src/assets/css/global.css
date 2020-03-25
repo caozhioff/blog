@@ -1,0 +1,32 @@
+body {
+    margin:0;
+    height: 100%;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #333;
+    background-color: #fff;
+}
+a {
+    text-decoration: none;
+}
+li {
+    list-style: none;
+}
+.news-content img {
+    width: 100%;
+}
+.tmpl {
+    margin-bottom: 55px;
+}
+h1, .h1, h2, .h2, h3, .h3 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+h3 {
+    font-size: 24px;
+}
+h1 {
+    font-size: 36px;
+}
