@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '@/components/Home.vue'
 import About from '@/components/About.vue'
+import My from '@/components/My.vue'
 import Contact from '@/components/Contact.vue'
 import Register from '@/components/Register.vue'
 import Login from '@/components/Login.vue'
@@ -16,6 +17,10 @@ const routes = [
     {
         path:'/about',
         component:About
+    },
+    {
+        path:'/my',
+        component:My
     },
     {
         path:'/contact',

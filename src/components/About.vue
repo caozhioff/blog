@@ -1,14 +1,15 @@
 <template>
     <div class="main-about">
         <Breadcrumb :title="title" />
-        <div class="about-content">
-            关于我的内容，后台提交
+        <div class="about-content" v-html="info">
         </div>
     </div>
 </template>
 
 <script>
 import Breadcrumb from '@/components/common/Breadcrumb.vue'
+import '../util/logout'
+import logout from '../util/logout'
 
 export default {
     components: {
@@ -16,8 +17,31 @@ export default {
     },
     data(){
         return {
-            title : '关于我'
+            title : '关于我',
+            info:''
         }
+    },
+    created(){
+        var _self = this;
+        let _token = localStorage.getItem('token');
+        if(!_token) {
+            _self.$message.error('(#^.^#)，你未登录哦！');
+            setTimeout(()=>{
+                _self.$router.push('/login');
+            },2000)
+            return;
+        }
+        _self.$axios.get('/my/my?user_id=1',{headers:{'Authorization':_token}}).then((response) => {
+            if (response.data.code == '001') {
+                _self.info = response.data.data.info;
+                return;
+            } 
+
+            _self.$message.error(response.data.msg);
+            setTimeout(() => {
+                logout.logout();
+            },2000)
+        })
     }
 }
 </script>

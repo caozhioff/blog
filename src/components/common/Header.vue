@@ -7,6 +7,9 @@
             <el-col :span="12" class="m-header-nav">
                 <ul class="navbar-nav">
                     <li>
+                        <router-link to="/blog">博客</router-link>
+                    </li>
+                    <li>
                         <router-link to="/about">关于我</router-link>
                     </li>
                     <li>
