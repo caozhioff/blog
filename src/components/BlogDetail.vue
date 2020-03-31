@@ -1,5 +1,5 @@
 <template>
-    <div class="main-container">
+    <div class="detail-content" ref="box">
         <el-row>
             <el-col :span=20>
                 <div class="blog-header">
@@ -8,9 +8,14 @@
                     <span>标签：{{ blog.tags }}</span>
                 </div>
                 <div class="blog-content" v-html="blog.content">
-    
+                    
                 </div>
                 <div class="blog-footer">
+                    <div class="pull-left" v-if='next'>
+                            <a href="javascript:void(0)" @click="gotoNext(next.title)" class="btn btn-success">
+                                新一篇：{{ next.title}}
+                            </a>
+                    </div>
                     <div class="pull-right" v-if='pre'>
                         <a href="javascript:void(0)" @click="gotoNext(pre.title)" class="btn btn-success">
                                 前一篇：{{ pre.title }}
@@ -18,7 +23,7 @@
                     </div>
                 </div>
             </el-col>
-             <Sidebar />
+            <Sidebar />
         </el-row>
     </div>
 </template>
@@ -33,11 +38,14 @@ export default {
         return {
             token:localStorage.getItem('token'),
             blog:{},
+            next:'',
             pre:'',
+            title: ''
         }
     },
     created(){
         var _self = this;
+        _self.title = _self.$route.params.title;
         if(!_self.token) {
             _self.$message.error('(#^.^#)，你未登录哦！');
             setTimeout(()=>{
@@ -50,7 +58,7 @@ export default {
     methods:{
         getData(){
             var _self = this;
-            _self.$axios.get('/blog/new',{params:{},headers:{'Authorization':_self.token}})
+            _self.$axios.get('/blog/detail',{params:{title:_self.title},headers:{'Authorization':_self.token}})
             .then(res => {
                 if(res.data.code == '002') {
                     _self.$message.error(res.data.msg);
@@ -58,7 +66,12 @@ export default {
                 }
                 _self.blog = res.data.data[0];
                 if (res.data.data[1]) {
-                    _self.pre = res.data.data[1];
+                    _self.next = res.data.data[1];
+                } else {
+                    _self.next = '';
+                }
+                if (res.data.data[2]) {
+                    _self.pre = res.data.data[2];
                 } else {
                     _self.pre = '';
                 }
@@ -70,15 +83,24 @@ export default {
         },
         gotoNext(title){
             var _self = this;
-            _self.$router.push({path:'/detail/' + title})
+            _self.title = title;
+            _self.$router.push({path:'/detail/' + _self.title})
             //_self.getData();
         }
     },
+    watch:{
+        '$route' (to, from) {
+            if (to.params.title != from.params.title) {
+                this.getData();
+                this.$ref.box.scrollTop = 0;
+            }
+        }
+    }
 }
 </script>
 
 <style>
-.main-container{
+.detail-content{
     width: 1170px;
     padding: 10px 15px 20px;
     margin-left: auto;

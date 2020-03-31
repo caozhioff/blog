@@ -72,7 +72,7 @@ module.exports = {
     //获取关于我的信息
     getMyInfo: async (ctx) => {
         let { user_id } = ctx.request.query;
-        let result = await Db.findWhere('my', {user_id});console.log(result)
+        let result = await Db.findWhere('my', {user_id});
         if (result.length > 0) {
             ctx.response.body = {
                 code:'001',

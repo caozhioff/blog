@@ -1,6 +1,7 @@
 const Koa = require('koa')
 const bodyParser = require('koa-bodyparser')
 const userRouter = require('./routers/user.js')
+const blogRouter = require('./routers/blog.js')
 var cors = require('koa2-cors');
 
 const app = new Koa();
@@ -31,5 +32,6 @@ app.listen(appPort, () => {
 
 app.use(bodyParser())
 app.use(userRouter.routes())
+app.use(blogRouter.routes())
 
 app.use(userRouter.allowedMethods())

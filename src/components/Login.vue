@@ -21,7 +21,7 @@
             </el-form-item>
             <!-- <p class="forget-pass">如果您忘记了您的密码，可以重置密码</p> -->
             <el-form-item>
-                <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
+                <el-button type="info" @click="submitForm('ruleForm')">登录</el-button>
             </el-form-item>
         </el-form>
     </div>

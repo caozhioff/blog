@@ -41,4 +41,7 @@ export default {
     bottom: 0;
     width: 100%;
 }
+.el-main{
+  padding-bottom: 70px !important;
+}
 </style>

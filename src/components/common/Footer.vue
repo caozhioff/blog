@@ -1,7 +1,7 @@
 <template>
     <div class="m-footer-container">
         <div class="footer-left">
-            © 小西博客 2020由vue驱动
+            © 小西博客 2020由vue+node+mongo驱动
         </div>
         <div class="footer-right">
             技术支持：vue

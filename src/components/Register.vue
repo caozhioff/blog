@@ -18,7 +18,7 @@
                 </div>
             </el-form-item>
             <el-form-item>
-                <el-button :disabled=isSubmit type="primary" @click="submitForm('ruleForm')">注册</el-button>
+                <el-button :disabled=isSubmit type="info" @click="submitForm('ruleForm')">注册</el-button>
             </el-form-item>
         </el-form>
     </div>

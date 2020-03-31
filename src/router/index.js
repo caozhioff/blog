@@ -6,6 +6,9 @@ import My from '@/components/My.vue'
 import Contact from '@/components/Contact.vue'
 import Register from '@/components/Register.vue'
 import Login from '@/components/Login.vue'
+import AddBlog from '@/components/AddBlog.vue'
+import BlogList from '@/components/BlogList.vue'
+import BlogDetail from '@/components/BlogDetail.vue'
 
 Vue.use(VueRouter);
 
@@ -33,9 +36,22 @@ const routes = [
     {
         path:'/login',
         component:Login
+    },
+    {
+        path:'/addBlog',
+        component:AddBlog,
+    },
+    {
+        path:'/blog',
+        component:BlogList,
+    },
+    {
+        path:'/detail/:title',
+        component:BlogDetail,
     }
 ]
 
 export default new VueRouter({
+    mode:'history',
     routes
 })

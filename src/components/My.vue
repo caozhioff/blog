@@ -81,4 +81,20 @@ export default {
 .sub{
     margin-top: 30px;
 }
+table {
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+th {
+    padding: 5px 15px;
+    border: 1px solid #eee;
+}
+tr {
+    background-color: #fff;
+    border-top: 1px solid #ccc;
+}
+td {
+    padding: 5px 15px;
+    border: 1px solid #eee;
+}
 </style>
