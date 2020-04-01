@@ -2,7 +2,7 @@
     <div class="main-container">
         <el-row>
             <el-col :span=20>
-                <div class="blog-header">
+                <div class="blog-header" v-if='blog'>
                     <h1>{{ blog.title }}</h1>
                     <span>本条日志由 小西 发表于 {{ blog.time }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
                     <span>标签：{{ blog.tags }}</span>
@@ -32,7 +32,7 @@ export default {
     data(){
         return {
             token:localStorage.getItem('token'),
-            blog:{},
+            blog:'',
             pre:'',
         }
     },
@@ -54,6 +54,13 @@ export default {
             .then(res => {
                 if(res.data.code == '002') {
                     _self.$message.error(res.data.msg);
+                    return;
+                }
+                if (res.data.data.length == 0) {
+                    _self.$message.error('最新一篇博文也是空的哦！即将跳转...')
+                    setTimeout(()=>{
+                        _self.$router.push('/addBlog')
+                    },2000)
                     return;
                 }
                 _self.blog = res.data.data[0];

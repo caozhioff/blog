@@ -48,6 +48,12 @@ export default {
             var _self = this;
             _self.$axios.get('/blog/list',{params:{search:_self.search},headers:{'Authorization':_self.token}})
             .then(res => {
+                if (res.data.data.length == 0) {//没有博文
+                    _self.$message.error('空空如也，即将跳转添加！记住添加的路由哦')
+                    setTimeout(()=>{
+                        _self.$router.push('/addBlog')
+                    },2000)
+                }
                 _self.blogs = res.data.data;
             })
             .catch(err => {

@@ -78,6 +78,10 @@ module.exports = {
     //获取最新的一篇博文，首页展示
     new: async (ctx) => {
         var detail = await blogModel.blogNew();
+        if (detail.length == 0) {
+            ctx.response.body = {code:'001',msg:'',data:[]}
+            return
+        }
         detail = detail[0];
 
         let preBlog = await blogModel.blogNext(detail.time,-1);

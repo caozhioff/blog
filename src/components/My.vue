@@ -35,7 +35,7 @@ export default {
             return;
         }
         _self.$axios.get('/my/my',{params:{user_id:1},headers:{'Authorization':_self.token}}).then((response) => {
-            if (response.data.code == '001') {console.log(response)
+            if (response.data.code == '001') {
                 _self.detail = response.data.data.info;
                 _self.is_edit = _self.detail ? true : false;
                 return;

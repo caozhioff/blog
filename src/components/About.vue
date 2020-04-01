@@ -9,7 +9,7 @@
 <script>
 import Breadcrumb from '@/components/common/Breadcrumb.vue'
 import '../util/logout'
-import logout from '../util/logout'
+//import logout from '../util/logout'
 
 export default {
     components: {
@@ -39,7 +39,7 @@ export default {
 
             _self.$message.error(response.data.msg);
             setTimeout(() => {
-                logout.logout();
+                _self.$router.push('/my')
             },2000)
         })
     }

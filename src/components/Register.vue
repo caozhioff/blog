@@ -92,7 +92,7 @@ export default {
                         type: 'success'
                     });
                     setTimeout(() => {
-                        _self.$router.push('/');
+                        _self.$router.push('/login');
                     },1500)
                 })
             } else {
