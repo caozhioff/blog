@@ -6,7 +6,7 @@
                     <h1 v-show="search">搜索：{{ search }}</h1>
                     <div class="blog-list" v-for="blog in blogs" :key="blog._id">
                         <h2><router-link :to="'/detail/' + blog.title">{{ blog.title }}</router-link></h2>
-                        <span>本条日志由 小西 发表于 {{ blog.time }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span>本条日志由 {{ blog.username }} 发表于 {{ blog.time }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
                         <span>标签：{{ blog.tags }}</span>
                     </div>
                     <div v-if="blogs.length==0">没有搜索到日志</div>
@@ -40,19 +40,18 @@ export default {
                 _self.$router.push('/login');
             },2000)
             return;
+        } else {
+            _self.getData();
         }
-        _self.getData();
     },
     methods:{
         getData(){
             var _self = this;
-            _self.$axios.get('/blog/list',{params:{search:_self.search},headers:{'Authorization':_self.token}})
+            var username = localStorage.getItem('username');
+            _self.$axios.get('/blog/list',{params:{search:_self.search,username:username},headers:{'Authorization':_self.token}})
             .then(res => {
                 if (res.data.data.length == 0) {//没有博文
-                    _self.$message.error('空空如也，即将跳转添加！记住添加的路由哦')
-                    setTimeout(()=>{
-                        _self.$router.push('/addBlog')
-                    },2000)
+                    _self.$message.error('空空如也哦!')
                 }
                 _self.blogs = res.data.data;
             })

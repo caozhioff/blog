@@ -54,10 +54,10 @@ class Db {
     findWhere(collectionName,where) {//findbyconditioon
         return new Promise((resolve, reject) => {
             this.connect().then((db) => {
-                db.collection(collectionName).find({},where).limit(1).toArray((err, result) => {
+                db.collection(collectionName).find(where).limit(1).toArray((err, result) => {
                     if (err) {
                         reject(err)
-                    } else {
+                    } else {console.log(result);
                         resolve(result)
                     }
                 })

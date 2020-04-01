@@ -12,8 +12,8 @@ module.exports = {
     /**
      * 注册
      */
-    register: async (ctx, next) => {
-        let { username,password,email } = ctx.request.body;
+    register: async ctx => {
+        let { username,password } = ctx.request.body;
 
         let res = await userModel.findUserByName(username);
     
@@ -28,8 +28,7 @@ module.exports = {
         try {
             let data = {
                 username,
-                password,
-                email
+                password
             }
             let result = await Db.insert('user',data);
             if (result.result.ok) {
@@ -71,8 +70,8 @@ module.exports = {
 
     //获取关于我的信息
     getMyInfo: async (ctx) => {
-        let { user_id } = ctx.request.query;
-        let result = await Db.findWhere('my', {user_id});
+        let { username } = ctx.request.query;
+        let result = await Db.findWhere('my', {username});
         if (result.length > 0) {
             ctx.response.body = {
                 code:'001',
@@ -89,15 +88,15 @@ module.exports = {
 
     //添加关于我的信息
     addMyInfo: async (ctx) => {
-        let { info, user_id, is_edit } = ctx.request.body;
+        let { info, username, is_edit } = ctx.request.body;
         let data = {
             info,
-            user_id
+            username
         }
         if (!is_edit) {
             var result = await Db.insert('my', data);//新增
         } else {
-            result = await Db.update('my', {user_id}, {info})            
+            result = await Db.update('my', {username}, {info})            
         }
 
         if (result.result.ok) {
@@ -111,7 +110,7 @@ module.exports = {
 
     //用户登录
     userLogin: async ctx => {
-        let {username, password, remember_me} = ctx.request.body;
+        let {username, password} = ctx.request.body;
         try {
             let user = await userModel.findUserByName(username);
             if (user.length > 0) {
@@ -119,7 +118,7 @@ module.exports = {
                 if (pass == user[0].password) {
                     //登录操作
                     let token = createJwt.getToken({username});
-                    ctx.response.body = {code: '001', msg:'登录成功',data:{token}}
+                    ctx.response.body = {code: '001', msg:'登录成功',data:{token,username}}
                     return;
                 }
             }

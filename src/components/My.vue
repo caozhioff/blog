@@ -22,7 +22,8 @@ export default {
             title:'修改关于我',
             detail:'',
             is_edit:false,
-            token:localStorage.getItem('token')
+            token:localStorage.getItem('token'),
+            username:localStorage.getItem('username')
         }
     },
     created(){
@@ -34,7 +35,7 @@ export default {
             },2000)
             return;
         }
-        _self.$axios.get('/my/my',{params:{user_id:1},headers:{'Authorization':_self.token}}).then((response) => {
+        _self.$axios.get('/my/my',{params:{username:_self.username},headers:{'Authorization':_self.token}}).then((response) => {
             if (response.data.code == '001') {
                 _self.detail = response.data.data.info;
                 _self.is_edit = _self.detail ? true : false;
@@ -51,7 +52,7 @@ export default {
             }
             _self.$axios.post('/my/addMy',{
                 info:_self.detail,
-                user_id:1,
+                username:_self.username,
                 is_edit:_self.is_edit
             },{headers:{'Authorization':_self.token}}).then((response) => {
                 if(response.data.code == '002') {

@@ -90,6 +90,8 @@ export default {
                     }
                     
                     localStorage.setItem('token', res.data.data.token);
+                    localStorage.setItem('username', res.data.data.username);
+                    this.$store.commit('changeUser',res.data.data.username)
                     _self.$message({
                         message: '登录成功，即将跳转',
                         type: 'success'

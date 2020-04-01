@@ -4,7 +4,7 @@
             <el-col :span=20>
                 <div class="blog-header" v-if='blog'>
                     <h1>{{ blog.title }}</h1>
-                    <span>本条日志由 小西 发表于 {{ blog.time }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span>本条日志由 {{ blog.username }} 发表于 {{ blog.time }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
                     <span>标签：{{ blog.tags }}</span>
                 </div>
                 <div class="blog-content" v-html="blog.content">
@@ -50,7 +50,8 @@ export default {
     methods:{
         getData(){
             var _self = this;
-            _self.$axios.get('/blog/new',{params:{},headers:{'Authorization':_self.token}})
+            var username = localStorage.getItem('username');
+            _self.$axios.get('/blog/new',{params:{username},headers:{'Authorization':_self.token}})
             .then(res => {
                 if(res.data.code == '002') {
                     _self.$message.error(res.data.msg);

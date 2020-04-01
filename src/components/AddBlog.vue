@@ -67,7 +67,7 @@ export default {
             _self.$refs[formName].validate((valid) => {
                 if (valid) {
                     _self.$axios.post('/blog/add',{
-                        user_id:1,
+                        username:localStorage.getItem('username'),
                         title:_self.ruleForm.title,
                         tags:_self.ruleForm.tags,
                         content:_self.ruleForm.content,

@@ -1,15 +1,22 @@
 const db = require('./db');
 
 module.exports = {
-    blogList : search => {
+    blogList : (search, username) => {console.log(username)
         return new Promise((resolve, reject) => {
             var reg = new RegExp(search, "i");
             var _filter = {
-                //多字段匹配
-                $or: [
-                    {title: {$regex: reg}},
-                    {tags: {$regex: reg}}
+                $and:[
+                    {
+                        $or: [
+                            {title: {$regex: reg}},
+                            {tags: {$regex: reg}}
+                        ],
+                    },
+                    {
+                        username:username,
+                    }
                 ]
+                //多字段匹配
             }
             //跳过指定数量的数据
             //skip(skipNums).
@@ -36,9 +43,9 @@ module.exports = {
             })
         })
     },
-    blogNew: () => {
+    blogNew: (username) => {
         return new Promise((resolve, reject) => {
-            db.dbClient.collection('blog').find().sort({time:-1}).limit(1).toArray((err,doc) => {
+            db.dbClient.collection('blog').find({username}).sort({time:-1}).limit(1).toArray((err,doc) => {
                 if (err) {
                     reject(err)
                 } else {
@@ -48,11 +55,11 @@ module.exports = {
         })
     },
     //上一篇，下一篇
-    blogNext: (time,str) => {
+    blogNext: (time,str,username) => {
         var filter = str == 1 ? {$gt:time} : {$lt:time};
         var sort = str == 1 ? {time:1} : {time:-1};
         return new Promise((resolve, reject) => {
-            db.dbClient.collection('blog').find({"time":filter}).project({"content":0})
+            db.dbClient.collection('blog').find({"time":filter,username:username}).project({"content":0})
             .sort(sort).limit(1).toArray((err,doc) => {
                 if (err) {
                     reject(err);
@@ -63,9 +70,9 @@ module.exports = {
         })
     },
     //tags
-    blogTags:() => {
+    blogTags:(username) => {
         return new Promise((resolve, reject) => {
-            db.dbClient.collection('blog').find().project({"tags":1,_id:0}).toArray((err,tags) => {
+            db.dbClient.collection('blog').find({username:username}).project({"tags":1,_id:0}).toArray((err,tags) => {
                 if (err) {
                     reject(err);
                 } else {

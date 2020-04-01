@@ -36,7 +36,6 @@ export default {
 .m-footer{
     background-color: #f5f5f5;
     border-top: 1px solid #ddd;
-    padding-top: 20px;
     position: fixed;
     bottom: 0;
     width: 100%;

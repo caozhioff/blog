@@ -64,7 +64,8 @@ export default {
     },
     created(){
         var _self = this;
-        _self.$axios.get('/blog/tags',{params:{},headers:{'Authorization':_self.token}})
+        var username = localStorage.getItem('username');
+        _self.$axios.get('/blog/tags',{params:{username},headers:{'Authorization':_self.token}})
         .then(res => {
             _self.tags = res.data.data;
         })

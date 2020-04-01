@@ -79,7 +79,6 @@ export default {
                 _self.$axios.post('/user/do-register',{
                         username:_self.ruleForm.username,
                         password:_self.ruleForm.pass,
-                        email:'1@qq.com',
                     }).then((response) => {
                     if(response.data.code == '002') {
                         this.isSubmit = false;

@@ -31,7 +31,8 @@ export default {
             },2000)
             return;
         }
-        _self.$axios.get('/my/my?user_id=1',{headers:{'Authorization':_token}}).then((response) => {
+        var username = localStorage.getItem('username');
+        _self.$axios.get('/my/my?username=' + username,{headers:{'Authorization':_token}}).then((response) => {
             if (response.data.code == '001') {
                 _self.info = response.data.data.info;
                 return;

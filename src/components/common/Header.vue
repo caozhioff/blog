@@ -2,7 +2,7 @@
     <div class="header-container">
         <el-row class="m-header-row">
             <el-col :span="12" class="m-header-title">
-                <router-link to="/">小西的博客</router-link>
+                <router-link to="/">{{ username}}博客</router-link>
             </el-col>
             <el-col :span="12" class="m-header-nav">
                 <ul class="navbar-nav">
@@ -51,3 +51,21 @@
     color: #9d9d9d;
 }
 </style>
+
+<script>
+export default {
+    data(){
+        return {
+            
+        }
+    },
+    mounted(){
+        //this.$store.commit('changeUser',localStorage.getItem('username'))
+    },
+    computed:{
+        username(){
+            return this.$store.state.username
+        }
+    }
+}
+</script>
